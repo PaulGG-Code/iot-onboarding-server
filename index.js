@@ -63,16 +63,16 @@ app.post("/generate-onboarding-key-for-device", async (req, res) => {
     const contract = new web3.eth.Contract(chain.abi, chain.contract);
 
     let key = await contract.methods
-      .generateRiotKeyForDevice(
+      .generateOnboardingKeyForDevice(
         firmwareHash,
         deviceDataHash,
         deviceGroupIdHash,
         deviceId
       )
       .call();
-    riotKey = "0x" + key.substr(2, 32);
+    onboardingKey = "0x" + key.substr(2, 32);
     res.status(200).json({
-      key: riotKey,
+      key: onboardingKey,
       // key: "0x2f052ba6c8e962a69b5fc75790ecd504",
     });
   } catch (error) {
@@ -212,3 +212,5 @@ const server = app.listen(
 server.on("error", (err) => {
   console.error(err);
 });
+
+module.exports = app;
