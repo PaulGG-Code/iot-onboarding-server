@@ -1,5 +1,5 @@
 const ONBOARDING_RPC_URL =
-  process.env.ONBOARDING_RPC_URL || "https://iot-onboarding-server.vercel.app";
+  process.env.ONBOARDING_RPC_URL || "https://iot-onboarding.adaptable.app";
 
 const onboardingDeviceImages = [
   "https://bafkreidmkpibpkguvrnzuqgmudacxji4fl6g437wrtb74t5uliqihuhede.ipfs.nftstorage.link/",
