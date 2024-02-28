@@ -55,7 +55,7 @@ app.post("/generate-onboarding-key-for-device", async (req, res) => {
       deviceGroupIdHash,
       deviceId,
       chainId,
-    } = req.body[0];
+    } = req.body;
 
     let chain = chains.filter((c) => c.chainId === parseInt(chainId))[0];
 
