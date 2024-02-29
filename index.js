@@ -57,7 +57,11 @@ app.post("/generate-onboarding-key-for-device", async (req, res) => {
       chainId,
     } = req.body;
 
-    let chain = chains.filter((c) => c.chainId === parseInt(chainId))[0];
+    // troubleshooting
+    console.log(chainId);
+    console.log(chains);
+    let chain = chains.find((c) => c.chainId === parseInt(chainId));
+    console.log(chain);
 
     const web3 = new Web3(chain.rpc);
     const contract = new web3.eth.Contract(chain.abi, chain.contract);
