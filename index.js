@@ -79,9 +79,9 @@ app.post("/generate-onboarding-key-for-device", async (req, res) => {
 
     const onboardingKey = "0x" + key.substr(2, 32);
     res.status(200).json({ 
-      key: onboardingKey
+      // key: onboardingKey
       // key: "0x2f052ba6c8e962a69b5fc75790ecd504"
-        
+      key: "0x147703d2622dbebc938651973599483f"  
     });
   } catch (error) {
     console.error(error);
