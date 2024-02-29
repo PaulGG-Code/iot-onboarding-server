@@ -47,7 +47,7 @@ app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
 
-app.post("/generate-onboarding-key-for-device", async (req, res) => {
+/* app.post("/generate-onboarding-key-for-device", async (req, res) => {
   try {
     const {
       firmwareHash,
@@ -86,7 +86,45 @@ app.post("/generate-onboarding-key-for-device", async (req, res) => {
     console.error(error);
     res.status(500).json({ error: error.message });
   }
+}); */
+
+app.post("/generate-onboarding-key-for-device", async (req, res) => {
+  try {
+    const { 
+      firmwareHash,
+      deviceDataHash,
+      deviceGroupIdHash, 
+      deviceId, 
+      chainId 
+    } = req.body;
+
+    console.log(`Received chainId: ${chainId}`);
+    console.log(`Available chains: ${JSON.stringify(chains.map(c => c.chainId))}`);
+
+    let chain = chains.find((c) => c.chainId === parseInt(chainId));
+    if (!chain) {
+      console.error(`No chain configuration found for chainId: ${chainId}`);
+      return res.status(404).json({ error: "Chain configuration not found for the provided chainId" });
+    }
+
+    const web3 = new Web3(chain.rpc);
+    const contract = new web3.eth.Contract(chain.abi, chain.contract);
+
+    let key = await contract.methods
+      .generateOnboardingKeyForDevice(firmwareHash, deviceDataHash, deviceGroupIdHash, deviceId)
+      .call();
+
+    const onboardingKey = "0x" + key.substr(2, 32);
+    res.status(200).json({
+      key: onboardingKey
+      //key: "0x147703d2622dbebc938651973599483f
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
 });
+
 
 app.post("/hashify", async (req, res) => {
   try {
