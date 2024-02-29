@@ -57,15 +57,17 @@ app.post("/generate-onboarding-key-for-device", async (req, res) => {
       chainId,
     } = req.body;
 
-    // troubleshooting
-    console.log(chainId);
-    console.log(chains);
+    // Find the chain configuration based on the provided chainId
     let chain = chains.find((c) => c.chainId === parseInt(chainId));
-    console.log(chain);
+    if (!chain) {
+      return res.status(404).json({ error: "Chain configuration not found for the provided chainId" });
+    }
 
+    // Initialize Web3 with the selected chain's RPC URL
     const web3 = new Web3(chain.rpc);
     const contract = new web3.eth.Contract(chain.abi, chain.contract);
 
+    // Call the smart contract method
     let key = await contract.methods
       .generateOnboardingKeyForDevice(
         firmwareHash,
@@ -74,13 +76,15 @@ app.post("/generate-onboarding-key-for-device", async (req, res) => {
         deviceId
       )
       .call();
-    onboardingKey = "0x" + key.substr(2, 32);
-    res.status(200).json({
-      key: onboardingKey,
-      // key: "0x2f052ba6c8e962a69b5fc75790ecd504",
+
+    const onboardingKey = "0x" + key.substr(2, 32);
+    res.status(200).json({ 
+      key: onboardingKey
+      // key: "0x2f052ba6c8e962a69b5fc75790ecd504"
+        
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).json({ error: error.message });
   }
 });
