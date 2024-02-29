@@ -97,7 +97,8 @@ app.post("/generate-onboarding-key-for-device", async (req, res) => {
       deviceId, 
       chainId 
     } = req.body;
-
+    
+    console.log("Request body:", req.body);
     console.log(`Received chainId: ${chainId}`);
     console.log(`Available chains: ${JSON.stringify(chains.map(c => c.chainId))}`);
 
