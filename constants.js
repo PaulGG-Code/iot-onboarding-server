@@ -7,7 +7,7 @@ const onboardingDeviceImages = [
   "https://bafybeideoqd4mya6div4c3drz3sfq5kbrp2p6mytcbwh6gpvgvexwf7wl4.ipfs.nftstorage.link/",
   "https://bafybeice6wite46sx5ztubkuafmxhjmacq6iivhlvl23fokf6ql3mqwc44.ipfs.nftstorage.link/",
 ];
-const zkEVMContractAddress = '0x48f0E1F94719841Df1D185AE130f7A0E44C11DAA';
+const zkEVMContractAddress = '0x655577c8D7B32A1E59c786A5865A28BE8424E140';
 const mumbaiContractAddress = '0x5F666e59B3986985508672f740d38D8F19e82d83';
 const mumbaiABI = [
   {
@@ -953,12 +953,12 @@ const chains = [
   },
   {
     name: "Polygon zkEVM Testnet",
-    chainId: 1442,
+    chainId: 2442,
     coinName: "ETH",
     icon: "/polygon.png",
-    rpc: "https://rpc.public.zkevm-test.net",
+    rpc: "https://rpc.cardona.zkevm-rpc.com",
     isMainnet: false,
-    blockExplorer: "https://explorer.public.zkevm-test.net",
+    blockExplorer: "https://cardona-zkevm.polygonscan.com/",
     abi: zkEVMABI,
     contract: zkEVMContractAddress,
   },
